@@ -1,0 +1,8 @@
+{
+  "buildDescriptor" : "build.gradle",
+  "readOnlyFiles" : ["build.gradle"],
+  "verification" : {
+    "testNamePatterns" : [".*verify_pack.*"],
+    "pathPatterns" : ["**src/test/**/verify_pack**"]
+  }
+}
