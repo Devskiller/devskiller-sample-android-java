@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 26
     defaultConfig {
         applicationId "com.devskiller.calculator.calculator"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -16,26 +16,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
-}
-
-repositories {
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile ('com.squareup.assertj:assertj-android:1.1.1'){
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.6.1'
+    testImplementation ('com.squareup.assertj:assertj-android:1.2.0'){
         exclude module: 'support-annotations'
     }
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.5.3'
-    androidTestCompile ('com.squareup.assertj:assertj-android:1.1.1'){
+    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
+    androidTestImplementation ('com.squareup.assertj:assertj-android:1.2.0'){
         exclude module: 'support-annotations'
     }
 
 
-    compile 'com.android.support:appcompat-v7:23.1.1'
 }
