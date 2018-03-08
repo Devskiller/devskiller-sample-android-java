@@ -17,7 +17,7 @@ locally.
 You can check out this short video to see the test from the [candidate's
 perspective](https://goo.gl/AXXaTT).
 
-This repo contains an sample project for Android and  below you can
+This repo contains a sample project for Android and below you can
 find a detailed guide for creating your own programming project.
 
 **Please make sure to read our [Getting started with programming
