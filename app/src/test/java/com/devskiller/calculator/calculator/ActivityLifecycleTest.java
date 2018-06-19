@@ -1,5 +1,7 @@
 package com.devskiller.calculator.calculator;
 
+import static org.assertj.android.api.Assertions.assertThat;
+
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -12,24 +14,20 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
-import static org.assertj.android.api.Assertions.assertThat;
-
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ActivityLifecycleTest {
 
     private ActivityController<MainActivity> controller;
     private MainActivity activity;
+    private TextView result;
 
     @Before
     public void setUp() {
         controller = Robolectric.buildActivity(MainActivity.class);
-        activity = controller
-                .create()
-                .start()
-                .resume()
-                .visible()
+        activity = controller.setup()
                 .get();
+        result = activity.findViewById(R.id.result);
     }
 
     @After
@@ -42,7 +40,6 @@ public class ActivityLifecycleTest {
 
     @Test
     public void shouldKeepCalculatorValuesAfterActivityPauseAndResume() {
-
         // given
         activity.findViewById(R.id.btn1).performClick();
         activity.findViewById(R.id.btn2).performClick();
@@ -52,12 +49,11 @@ public class ActivityLifecycleTest {
         controller.pause().resume();
 
         // then
-        assertThat((TextView) activity.findViewById(R.id.result)).hasText("123");
+        assertThat(result).hasText("123");
     }
 
     @Test
     public void shouldKeepCalculatorValuesAfterActivityRecreation() {
-
         // given
         activity.findViewById(R.id.btn1).performClick();
         activity.findViewById(R.id.btn2).performClick();
@@ -68,20 +64,16 @@ public class ActivityLifecycleTest {
         // when
         destroyOriginalActivity(bundle);
         bringUpOriginalActivity(bundle);
-        activity.findViewById(R.id.btn4).performClick();
 
         // then
-        assertThat((TextView) activity.findViewById(R.id.result)).hasText("1234");
+        assertThat(result).hasText("123");
     }
 
     private void bringUpOriginalActivity(Bundle bundle) {
         controller = Robolectric.buildActivity(MainActivity.class)
-                .create(bundle)
-                .start()
-                .restoreInstanceState(bundle)
-                .resume()
-                .visible();
+                .setup(bundle);
         activity = controller.get();
+        result = activity.findViewById(R.id.result);
     }
 
     private void destroyOriginalActivity(Bundle bundle) {
