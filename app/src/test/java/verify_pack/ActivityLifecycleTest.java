@@ -1,11 +1,9 @@
 package verify_pack;
 
+import static org.assertj.android.api.Assertions.assertThat;
+
 import android.os.Bundle;
 import android.widget.TextView;
-
-import com.devskiller.calculator.calculator.BuildConfig;
-import com.devskiller.calculator.calculator.MainActivity;
-import com.devskiller.calculator.calculator.R;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +14,9 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
-import static org.assertj.android.api.Assertions.assertThat;
+import com.devskiller.calculator.calculator.BuildConfig;
+import com.devskiller.calculator.calculator.MainActivity;
+import com.devskiller.calculator.calculator.R;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
@@ -24,16 +24,14 @@ public class ActivityLifecycleTest {
 
     private ActivityController<MainActivity> controller;
     private MainActivity activity;
+    private TextView result;
 
     @Before
     public void setUp() {
         controller = Robolectric.buildActivity(MainActivity.class);
-        activity = controller
-                .create()
-                .start()
-                .resume()
-                .visible()
+        activity = controller.setup()
                 .get();
+        result = activity.findViewById(R.id.result);
     }
 
     @After
@@ -46,7 +44,6 @@ public class ActivityLifecycleTest {
 
     @Test
     public void shouldKeepCalculatorValuesAfterActivityPauseAndResume() {
-
         // given
         activity.findViewById(R.id.btn1).performClick();
         activity.findViewById(R.id.btn2).performClick();
@@ -56,12 +53,11 @@ public class ActivityLifecycleTest {
         controller.pause().resume();
 
         // then
-        assertThat((TextView) activity.findViewById(R.id.result)).hasText("123");
+        assertThat(result).hasText("123");
     }
 
     @Test
-    public void shouldKeepCalculatorValuesAfterActivityRecreation() {
-
+    public void shouldKeepCalculatorFunctionalAfterActivityRecreation() {
         // given
         activity.findViewById(R.id.btn1).performClick();
         activity.findViewById(R.id.btn2).performClick();
@@ -75,17 +71,30 @@ public class ActivityLifecycleTest {
         activity.findViewById(R.id.btn4).performClick();
 
         // then
-        assertThat((TextView) activity.findViewById(R.id.result)).hasText("1234");
+        assertThat(result).hasText("1234");
+    }
+
+    @Test
+    public void shouldStillDisplayErrorAfterActivityRecreation() {
+        activity.findViewById(R.id.btn2).performClick();
+        activity.findViewById(R.id.btnDivide).performClick();
+        activity.findViewById(R.id.btn0).performClick();
+        activity.findViewById(R.id.btnEqual).performClick();
+
+        Bundle bundle = new Bundle();
+
+        // when
+        destroyOriginalActivity(bundle);
+        bringUpOriginalActivity(bundle);
+
+        assertThat(result).hasText("E");
     }
 
     private void bringUpOriginalActivity(Bundle bundle) {
         controller = Robolectric.buildActivity(MainActivity.class)
-                .create(bundle)
-                .start()
-                .restoreInstanceState(bundle)
-                .resume()
-                .visible();
+                .setup(bundle);
         activity = controller.get();
+        result = activity.findViewById(R.id.result);
     }
 
     private void destroyOriginalActivity(Bundle bundle) {

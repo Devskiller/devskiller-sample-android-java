@@ -1,11 +1,9 @@
 package verify_pack;
 
+import static org.assertj.android.api.Assertions.assertThat;
+
 import android.app.Activity;
 import android.widget.TextView;
-
-import com.devskiller.calculator.calculator.BuildConfig;
-import com.devskiller.calculator.calculator.MainActivity;
-import com.devskiller.calculator.calculator.R;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,19 +12,21 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.assertj.android.api.Assertions.assertThat;
+import com.devskiller.calculator.calculator.BuildConfig;
+import com.devskiller.calculator.calculator.MainActivity;
+import com.devskiller.calculator.calculator.R;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class ActivityTest {
 
-    TextView result;
+    private TextView result;
     private Activity activity;
 
     @Before
     public void setUp() {
         activity = Robolectric.setupActivity(MainActivity.class);
-        result = (TextView) activity.findViewById(R.id.result);
+        result = activity.findViewById(R.id.result);
     }
 
     @Test
@@ -98,6 +98,7 @@ public class ActivityTest {
         // then
         assertThat(result).hasText("4");
     }
+
     @Test
     public void shouldReportErrorWhenDivideByZero() {
         // given

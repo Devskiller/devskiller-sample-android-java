@@ -8,7 +8,6 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -24,20 +23,19 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.annimon:stream:1.2.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.6.1'
     testImplementation ('com.squareup.assertj:assertj-android:1.2.0'){
         exclude module: 'support-annotations'
     }
-    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
-    androidTestImplementation ('com.squareup.assertj:assertj-android:1.2.0'){
-        exclude module: 'support-annotations'
-    }
-
-
 }
