@@ -85,4 +85,3 @@ To define verification tests, you need to set two configuration properties in
   be deleted from candidates' projects and will be added to the projects during
   the verification phase. These files will not be visible to the candidate during
   the test.
-
