@@ -19,6 +19,12 @@ android {
         unitTests {
             includeAndroidResources = true
         }
+        unitTests.all {
+            testLogging {
+                exceptionFormat = 'full'
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+            }
+        }
     }
     lintOptions {
         abortOnError false
