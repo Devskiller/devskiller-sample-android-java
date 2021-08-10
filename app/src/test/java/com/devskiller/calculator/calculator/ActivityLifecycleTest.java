@@ -2,6 +2,7 @@ package com.devskiller.calculator.calculator;
 
 import static org.assertj.android.api.Assertions.assertThat;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(sdk = Build.VERSION_CODES.N)
 public class ActivityLifecycleTest {
 
     private ActivityController<MainActivity> controller;
@@ -32,8 +33,7 @@ public class ActivityLifecycleTest {
 
     @After
     public void tearDown() {
-        controller
-                .pause()
+        controller.pause()
                 .stop()
                 .destroy();
     }
@@ -77,8 +77,7 @@ public class ActivityLifecycleTest {
     }
 
     private void destroyOriginalActivity(Bundle bundle) {
-        controller
-                .saveInstanceState(bundle)
+        controller.saveInstanceState(bundle)
                 .pause()
                 .stop()
                 .destroy();

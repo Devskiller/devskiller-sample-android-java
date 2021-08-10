@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import com.annimon.stream.function.BinaryOperator;
 
 public enum Operation {
+
     NONE((acc, arg) -> arg),
     ADD(BigInteger::add),
     SUBTRACT(BigInteger::subtract),

@@ -55,7 +55,6 @@ Here is an example project descriptor:
 
 ```json
 {
-  "buildDescriptor" : "build.gradle",
   "readOnlyFiles" : ["build.gradle"],
   "verification" : {
     "testNamePatterns" : [".*verify_pack.*"],

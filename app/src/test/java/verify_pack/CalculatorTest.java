@@ -12,6 +12,7 @@ import com.devskiller.calculator.calculator.Calculator;
 import com.devskiller.calculator.calculator.Operation;
 
 public class CalculatorTest {
+
     private Calculator calculator;
 
     @Before

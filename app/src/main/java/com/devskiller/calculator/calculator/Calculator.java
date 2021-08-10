@@ -3,6 +3,7 @@ package com.devskiller.calculator.calculator;
 import java.math.BigInteger;
 
 public class Calculator {
+
     private Operation operation = Operation.NONE;
     private BigInteger accumulator = BigInteger.ZERO;
 

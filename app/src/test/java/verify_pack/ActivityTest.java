@@ -3,6 +3,7 @@ package verify_pack;
 import static org.assertj.android.api.Assertions.assertThat;
 
 import android.app.Activity;
+import android.os.Build;
 import android.widget.TextView;
 
 import org.junit.Before;
@@ -12,12 +13,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import com.devskiller.calculator.calculator.BuildConfig;
 import com.devskiller.calculator.calculator.MainActivity;
 import com.devskiller.calculator.calculator.R;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(sdk = Build.VERSION_CODES.N)
 public class ActivityTest {
 
     private TextView result;
@@ -125,5 +125,4 @@ public class ActivityTest {
         // then
         assertThat(result).hasText("0");
     }
-
 }

@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 
 @SuppressLint("UseSparseArrays")
 public final class ButtonsMapping {
+
     static final Map<Integer, Operation> MATH_OPERATIONS = new HashMap<>();
     static final Map<Integer, Integer> DIGITS = new HashMap<>();
 

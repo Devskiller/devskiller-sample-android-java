@@ -3,6 +3,7 @@ package com.devskiller.calculator.calculator;
 import java.math.BigInteger;
 
 public class Display {
+
     private BigInteger value = BigInteger.ZERO;
     private boolean completed = false;
 
